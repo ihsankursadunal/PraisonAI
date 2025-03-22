@@ -1,3 +1,9 @@
+import os
+
+
+os.environ["OPENAI_BASE_URL"] = 'http://localhost:11434/v1'
+os.environ["OPENAI_API_KEY"] = 'fake-key'
+
 from praisonaiagents import Agent
 
 config = {
@@ -30,10 +36,10 @@ config = {
 agent = Agent(
     name="Knowledge Agent",
     instructions="You answer questions based on the provided knowledge.",
-    knowledge=["kag-research-paper.pdf"], # Indexing
+    knowledge=["hello-sui.md"], # Indexing
     knowledge_config=config,
     user_id="user1",
     llm="deepseek-r1"
 )
 
-agent.start("What is KAG in one line?") # Querying
+agent.start("What is SUI in one line?") # Querying
