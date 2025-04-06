@@ -5,7 +5,8 @@ os.environ["OPENAI_BASE_URL"] = 'http://localhost:11434/v1'
 os.environ["OPENAI_API_KEY"] = 'fake-key'
 
 from praisonaiagents import Agent
-
+from glob import glob
+ 
 config = {
     "vector_store": {
         "provider": "chroma",
@@ -17,9 +18,7 @@ config = {
     "llm": {
         "provider": "ollama",
         "config": {
-            "model": "deepseek-r1:latest",
-            "temperature": 0,
-            "max_tokens": 8000,
+            "model": "deepseek-coder-v2",
             "ollama_base_url": "http://localhost:11434",
         },
     },
@@ -33,13 +32,16 @@ config = {
     },
 }
 
+
+knowledge = [path for path in glob('..\move-book\\**\\*.md')]
+
 agent = Agent(
     name="Knowledge Agent",
     instructions="You answer questions based on the provided knowledge.",
-    knowledge=["hello-sui.md"], # Indexing
+    knowledge=knowledge,
     knowledge_config=config,
     user_id="user1",
-    llm="deepseek-r1"
+    llm="deepseek-coder-v2"
 )
 
 agent.start("What is SUI in one line?") # Querying
